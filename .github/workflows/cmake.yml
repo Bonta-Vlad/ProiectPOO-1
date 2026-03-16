@@ -1,0 +1,131 @@
+name: C++ CI
+
+on:
+  push:
+    branches: [main]
+    tags: ['*']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      build_type:
+        description: Build type
+        required: false
+        default: 'Debug'
+        type: choice
+        options:
+          - Debug
+          - Release
+          - RelWithDebInfo
+          - MinSizeRel
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    permissions:
+      contents: write
+
+    defaults:
+      run:
+        shell: bash
+
+    env:
+      CC: ${{ matrix.c }}
+      CXX: ${{ matrix.cxx }}
+      BUILD_TYPE: ${{ github.event.inputs.build_type || 'Debug' }}
+      CPPCHECK_VER: "2.13.0"
+      EXECUTABLE_NAME: "oop"
+      INPUT_FILENAME: "tastatura.txt"
+      BUILD_DIR: "build"
+      EXT_DIR: "ext"
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            c: clang-18
+            cxx: clang++-18
+            name: Ubuntu 24.04 Clang 18
+            cmake_flags: -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
+          - os: ubuntu-24.04
+            c: gcc-13
+            cxx: g++-13
+            name: Ubuntu 24.04 GCC 13
+            cmake_flags: -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
+          - os: macos-14
+            c: clang
+            cxx: clang++
+            name: macOS 14 Apple Clang (M1)
+
+          - os: windows-2022
+            c: cl
+            cxx: cl
+            name: Windows 2022 MSVC
+
+          - os: windows-2022
+            c: gcc
+            cxx: g++
+            name: Windows 2022 MinGW
+            cmake_generator: Ninja
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Prepare env
+        run: |
+          mkdir -p artifacts
+          # Create dummy input file if it doesn't exist to prevent crash
+          if [ ! -f "${INPUT_FILENAME}" ]; then touch "${INPUT_FILENAME}"; fi
+
+      - name: Install Linux Dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build valgrind cppcheck jq
+
+      - name: Cache MinGW
+        if: runner.os == 'Windows' && matrix.cxx == 'g++'
+        uses: actions/cache@v4
+        id: cache-mingw
+        with:
+          path: C:/mingw64
+          key: mingw-13.2.0
+
+      - name: Build & Install
+        run: |
+          # Configure
+          cmake -S . -B "${BUILD_DIR}" \
+            -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
+            -DCMAKE_INSTALL_PREFIX=./artifacts \
+            ${{ matrix.cmake_flags }} \
+            ${{ matrix.cmake_generator && format('-G "{0}"', matrix.cmake_generator) || '' }}
+          
+          # Build
+          cmake --build "${BUILD_DIR}" --config ${BUILD_TYPE} -j $(nproc 2>/dev/null || sysctl -n hw.ncpu)
+          
+          # Install
+          cmake --install "${BUILD_DIR}" --config ${BUILD_TYPE}
+
+      - name: Memory Check (Valgrind)
+        if: runner.os == 'Linux' && contains(matrix.cxx, 'g++')
+        run: |
+          valgrind --leak-check=full --error-exitcode=1 ./${BUILD_DIR}/${EXECUTABLE_NAME} < "${INPUT_FILENAME}"
+
+      - name: Static Analysis (Cppcheck)
+        if: runner.os == 'Linux'
+        run: |
+          cppcheck --enable=all --project="${BUILD_DIR}"/compile_commands.json \
+            --suppress=missingIncludeSystem --error-exitcode=1
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.event.repository.name }}_${{ matrix.os }}_${{ matrix.cxx }}
+          path: artifacts/
+          retention-days: 5
