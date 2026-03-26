@@ -1,4 +1,5 @@
 #include "engines.h"
+#include <cmath>
 
 double Reciprocating::displacement() const{
                                       //pi(bore/2)^2
