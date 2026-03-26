@@ -14,8 +14,8 @@ class Engine{
 
 class Reciprocating: public Engine{
     enum strokes{
-        TWO,
-        FOUR
+        TWO=2,
+        FOUR=4
     }strokes;
     enum config{
         INLINE,
