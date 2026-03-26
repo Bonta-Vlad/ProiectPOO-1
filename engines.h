@@ -1,4 +1,16 @@
-#include "engine.h"
+#include <string>
+
+class Engine{
+    protected:
+    std::string lubricant;
+    std::string fuel;
+    enum{
+        SPARK,
+        COMPRESSION
+    }ignition;
+    public:
+    virtual double displacement() const=0;
+};
 
 class Reciprocating: public Engine{
     enum{
