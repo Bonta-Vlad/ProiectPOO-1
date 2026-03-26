@@ -10,8 +10,6 @@ class Engine{
     }ignition;
     public:
     virtual double displacement() const=0;
-    Engine(std::string _lubricant, enum ignition _ignition);
-    Engine(Engine& other);
 };
 
 class Reciprocating: public Engine{
@@ -31,6 +29,5 @@ class Reciprocating: public Engine{
     double stroke_length;
     public:
     double displacement() const override;
-    Reciprocating(std::string _lubricant, enum ignition _ignition, enum strokes _strokes, enum config _config, unsigned int _cylinder_count, double _bore, double _stroke_length): Engine(_lubricant, _ignition) {}
-    Reciprocating(Reciprocating& other): Engine(other){}
+    Reciprocating(std::string _lubricant, enum ignition _ignition, enum strokes _strokes, enum config _config, unsigned int _cylinder_count, double _bore, double _stroke_length);
 };
