@@ -15,11 +15,11 @@ class Engine{
 };
 
 class Reciprocating: public Engine{
-    enum{
+    enum strokes{
         TWO,
         FOUR
     }strokes;
-    enum{
+    enum config{
         INLINE,
         BOXER,
         V,
@@ -28,7 +28,9 @@ class Reciprocating: public Engine{
     }config;
     unsigned int cylinder_count;
     double bore;
-    double stroke_lenght;
+    double stroke_length;
     public:
     double displacement() const override;
+    Reciprocating(std::string _lubricant, enum ignition _ignition, enum strokes _strokes, enum config _config, unsigned int _cylinder_count, double _bore, double _stroke_length): Engine(_lubricant, _ignition) {}
+    Reciprocating(Reciprocating& other): Engine(other){}
 };
