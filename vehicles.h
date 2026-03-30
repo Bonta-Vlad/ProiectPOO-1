@@ -2,6 +2,7 @@
 
 class Vehicles{
 protected:
+static int gid;
 //metric assumed 
 double weight;
 double lenght;
