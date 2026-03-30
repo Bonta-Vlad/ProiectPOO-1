@@ -20,7 +20,9 @@ class Electric: virtual public Vehicles{
 };
 
 class  Fossil: virtual public Vehicles{
-    Engine* Engine;
+    Engine* engine;
+    public:
+    virtual ~Fossil();
 };
 
 class Hybrid: public Electric, public Fossil{
