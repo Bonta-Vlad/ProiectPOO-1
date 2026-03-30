@@ -8,6 +8,7 @@ double lenght;
 double width;
 double height;
 int seats;
+int id;
 enum wheels{
     TWO=2,
     THREE,
@@ -15,6 +16,7 @@ enum wheels{
 }wheel_count;
 public:
 ~Vehicles();
+int get_id() const;
 };
 
 class Electric: virtual public Vehicles{
