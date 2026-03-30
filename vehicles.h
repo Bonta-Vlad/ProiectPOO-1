@@ -13,6 +13,8 @@ enum wheels{
     THREE,
     FOUR
 }wheel_count;
+public:
+~Vehicles();
 };
 
 class Electric: virtual public Vehicles{
