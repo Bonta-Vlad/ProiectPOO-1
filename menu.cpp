@@ -12,9 +12,6 @@ Menu* Menu::init(){
     return Instance;
 }
 Menu::~Menu(){
-    for (Vehicles* i : data) {
-        delete i;
-    }
     data.clear();
     delete Instance;
 }
@@ -26,8 +23,8 @@ void Menu::quit(){
 }
 
 void Menu::list_vehicles() const{
-    for (auto i : data) {
-    std::cout<<i;
+    for (auto& i : data) {
+    i->print();
     }
 }
 
@@ -36,9 +33,8 @@ void Menu::remove_vehicle(){
     std::cout<<"Remove vehicle with id: ";
     int target;
     std::cin>> target;
-    for(auto i: data){
+    for(auto& i: data){
         if(i->get_id()== target){
-            delete i;
             data.erase(std::find(data.begin(), data.end(), i));
         }
     }

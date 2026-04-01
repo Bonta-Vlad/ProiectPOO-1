@@ -1,9 +1,10 @@
+#include <memory>
 #include <vector>
 #include "vehicles.h"
 class Menu{
     static int Active;
     static Menu* Instance;
-    std::vector<Vehicles*> data;
+    std::vector<std::unique_ptr<Vehicles>> data;
     Menu();
     public:
     static Menu* init();
