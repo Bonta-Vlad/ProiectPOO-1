@@ -32,3 +32,11 @@ class Reciprocating: public Engine{
     double displacement() const override;
     Reciprocating(std::string _lubricant, enum ignition _ignition, enum strokes _strokes, enum config _config, unsigned int _cylinder_count, double _bore, double _stroke_length);
 };
+
+class Rotary: public Engine{
+    //volume for one of the engines chambers
+    double chamber_volume;
+    int chamber_count;
+    int rotor_count;
+    double displacement() const override;
+};
