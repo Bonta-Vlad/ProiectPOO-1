@@ -16,6 +16,7 @@ Menu::~Menu(){
         delete i;
     }
     data.clear();
+    delete Instance;
 }
 int Menu::status() const{
     return Active;
