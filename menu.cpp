@@ -1,6 +1,7 @@
 #include "menu.h"
 #include <algorithm>
 #include <iostream>
+#include "exceptions.h"
 
 Menu* Menu::Instance= nullptr;
 int Menu::Active=1;
@@ -52,6 +53,7 @@ void Menu::options(){
     std::cout<<"3 - Remove a vehicle/n";
 
     int option;
+    try{
     std::cin>>option;
     switch (option){
     case 0:
@@ -62,5 +64,8 @@ void Menu::options(){
     list_vehicles();break;
     case 3:
     remove_vehicle();break;
+    }
+    }catch(InvalidInput& e){
+        std::cout<<e.what()<<std::endl;
     }
 }
