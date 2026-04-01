@@ -1,9 +1,12 @@
-#include "engines.h"
-#include <iostream>
+#include "menu.h"
 
 int main(){
 
-    std::cout<<"Placeholder";
+    Menu* menu= Menu::init();
+
+    while(menu->status()){
+        menu->options();
+    }
 
     return 0;
 }
