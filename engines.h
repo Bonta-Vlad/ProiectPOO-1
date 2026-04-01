@@ -38,5 +38,6 @@ class Rotary: public Engine{
     double chamber_volume;
     int chamber_count;
     int rotor_count;
+    public:
     double displacement() const override;
 };
