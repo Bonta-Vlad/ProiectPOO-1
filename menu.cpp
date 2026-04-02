@@ -1,6 +1,7 @@
 #include "menu.h"
 #include <algorithm>
 #include <iostream>
+#include <string>
 #include "exceptions.h"
 
 Menu* Menu::Instance= nullptr;
@@ -41,6 +42,26 @@ void Menu::remove_vehicle(){
     }
 }
 
+void Menu::add_vehicle(){
+    int retry;
+    int option;
+    do {
+    retry=0;
+    try {
+        std::cout<<"\033[2J\033[1;1H";
+        std::cout<<"Select the Vehicle type:/n";
+        std::cout<<"0 - Fossil Fuel/n";
+        std::cout<<"1 - Electric/n";
+        std::cout<<"2 - Hybrid/n";
+        std::cin>>option;
+    } catch (InvalidInput& e)  {
+        std::cout<<e.what()<<std::endl;
+        retry=1;
+        std::cin.get();
+    }
+
+    }while (retry);
+}
 
 void Menu::options(){
     //clear screen via ANSI escape codes
@@ -64,6 +85,7 @@ void Menu::options(){
     list_vehicles();break;
     case 3:
     remove_vehicle();break;
+    default: throw InvalidInput("Invalid option! Valid options: [0-3] Got: " + std::to_string(option)) ; break;
     }
     }catch(InvalidInput& e){
         std::cout<<e.what()<<std::endl;

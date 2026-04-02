@@ -3,6 +3,6 @@
 class InvalidInput: public std::exception{
     std::string message;
     public:
-    InvalidInput(const char* msg): message(msg){}
+    InvalidInput(std::string msg): message(msg){}
     const char* what() const noexcept;
 };
