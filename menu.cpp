@@ -67,5 +67,6 @@ void Menu::options(){
     }
     }catch(InvalidInput& e){
         std::cout<<e.what()<<std::endl;
+        std::cin.get();
     }
 }
