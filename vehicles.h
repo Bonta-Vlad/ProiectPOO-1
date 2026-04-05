@@ -17,7 +17,7 @@ enum wheels{
     FOUR
 }wheel_count;
 public:
-virtual ~Vehicles();
+virtual ~Vehicles(){}
 int get_id() const;
 virtual void print() const= 0;
 
@@ -28,14 +28,14 @@ class Electric: virtual public Vehicles{
     int battery_capacity;
     public:
     virtual void print() const override;
-    virtual ~Electric();
+    virtual ~Electric(){}
 };
 
 class  Fossil: virtual public Vehicles{
     protected:
     Engine* engine;
     public:
-    virtual ~Fossil();
+    virtual ~Fossil(){ delete engine; }
     virtual void print() const override;
 };
 

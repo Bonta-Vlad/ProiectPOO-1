@@ -7,10 +7,6 @@ int Vehicles::get_id() const{
     return id;
 }
 
-Fossil::~Fossil(){
-    delete engine;
-}
-
 void Fossil::print() const{
     std::cout<<"ID:"<<id<<"/nEngine displacement: "<<engine->displacement()<<"/nWheel count:"<<wheel_count<<std::endl;
 }
