@@ -5,11 +5,11 @@ class Menu{
     static int Active;
     static Menu* Instance;
     std::vector<std::unique_ptr<Vehicles>> data;
-    Menu();
+    Menu(){}
     public:
     static Menu* init();
-    ~Menu();
-    public:
+    ~Menu(){}
+    Menu(const Menu& _menu)= delete;
     int status() const;
     void options();
     void quit();
