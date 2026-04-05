@@ -13,10 +13,6 @@ Menu* Menu::init(){
     }
     return Instance;
 }
-Menu::~Menu(){
-    data.clear();
-    delete Instance;
-}
 int Menu::status() const{
     return Active;
 }

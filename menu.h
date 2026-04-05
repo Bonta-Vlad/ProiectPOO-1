@@ -8,7 +8,7 @@ class Menu{
     Menu(){}
     public:
     static Menu* init();
-    ~Menu(){}
+    ~Menu(){ delete Instance; data.clear();}
     Menu(const Menu& _menu)= delete;
     int status() const;
     void options();
