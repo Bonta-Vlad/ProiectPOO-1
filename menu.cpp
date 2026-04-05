@@ -1,5 +1,4 @@
 #include "menu.h"
-#include <algorithm>
 #include <iostream>
 #include <string>
 #include "exceptions.h"
@@ -39,8 +38,7 @@ void Menu::remove_vehicle(){
     }
     if (poz >=0){
         //don't need the returned iterator, but it's a nodiscard function.
-        auto ignore =std::remove(data.begin(),data.end(),poz);
-        data.pop_back();
+        data.erase(data.begin()+poz);
     }
 }
 
