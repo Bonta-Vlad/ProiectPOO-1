@@ -74,7 +74,27 @@ void Menu::options(){
         std::cin.get();
     }
 }
+Engine* Menu::build_engine(){
+    std::cout<<"Building an engine:\n";
+    Engine* t_engine;
+    int option;
+    std::cin>>option;
+    if(option==1){
+        int count;double bore,stroke;
+        std::cin>>count>>bore>>stroke;
+        std::string lubricant;
+        getline(std::cin,lubricant);
+        t_engine= new Reciprocating(lubricant,"spark",count,bore,stroke);
+    }else if (option==2) {
+        int chamber,rotor;double volume;
+        std::cin>>volume>>chamber>>rotor;
+        std::string lubricant;
+        getline(std::cin,lubricant);
+        t_engine= new Rotary(lubricant,"spark",volume,chamber,rotor);
+    }
 
+    return t_engine;
+}
 void Menu::add_electric(){
     std::cout<<"\033[2J\033[1;1H";
     std::cout<<"Adding an electric vehicle:\n";
