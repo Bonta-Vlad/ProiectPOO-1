@@ -39,5 +39,5 @@ class  Fossil: virtual public Vehicles{
 class Hybrid: public Electric, public Fossil{
     virtual void print() const override;
     public:
-    Hybrid(double _weight, double _lenght, int _seats, int _wheel_count, Engine* _engine, int _battery_capacity):Vehicles(_weight, _lenght, _seats, _wheel_count),Fossil(_weight,_lenght,_seats,_wheel_count,_engine),Electric(_weight, _lenght, _seats, _wheel_count, _battery_capacity){}
+    Hybrid(double _weight, double _lenght, int _seats, int _wheel_count, Engine* _engine, int _battery_capacity):Fossil(_weight,_lenght,_seats,_wheel_count,_engine),Electric(_weight, _lenght, _seats, _wheel_count, _battery_capacity),Vehicles(_weight, _lenght, _seats, _wheel_count){}
 };
