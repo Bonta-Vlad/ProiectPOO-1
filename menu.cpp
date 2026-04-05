@@ -42,26 +42,7 @@ void Menu::remove_vehicle(){
     }
 }
 
-void Menu::add_vehicle(){
-    int retry;
-    int option;
-    do {
-    retry=0;
-    try {
-        std::cout<<"\033[2J\033[1;1H";
-        std::cout<<"Select the Vehicle type:\n";
-        std::cout<<"0 - Fossil Fuel\n";
-        std::cout<<"1 - Electric\n";
-        std::cout<<"2 - Hybrid\n";
-        std::cin>>option;
-    } catch (InvalidInput& e)  {
-        std::cout<<e.what()<<std::endl;
-        retry=1;
-        std::cin.get();
-    }
 
-    }while (retry);
-}
 
 void Menu::options(){
     //clear screen via ANSI escape codes
@@ -92,4 +73,61 @@ void Menu::options(){
         std::cout<<e.what()<<std::endl;
         std::cin.get();
     }
+}
+
+void Menu::add_electric(){
+    std::cout<<"\033[2J\033[1;1H";
+    std::cout<<"Adding an electric vehicle:\n";
+    double weight,length;
+    int whe,seats,battery;
+    std::cin>>weight>>length>>seats>>whe>>battery;
+    Electric* a_vehicle= new Electric(weight,length,seats,whe,battery);
+    data.push_back(a_vehicle);
+}
+
+void Menu::add_fossil(){
+    std::cout<<"\033[2J\033[1;1H";
+    std::cout<<"Adding a fossil fuel vehicle:\n";
+    double weight,length;
+    int whe,seats;
+    std::cin>>weight>>length>>seats>>whe;
+    Fossil* a_vehicle = new Fossil(weight,length,seats,whe,build_engine());
+    data.push_back(a_vehicle);
+}
+
+void Menu::add_hybrid(){
+    std::cout<<"\033[2J\033[1;1H";
+    std::cout<<"Adding a hybrid vehicle:\n";
+    double weight,length;
+    int whe,seats,battery;
+    std::cin>>weight>>length>>seats>>whe>>battery;
+    Fossil* a_vehicle = new Hybrid(weight,length,seats,whe,build_engine(),battery);
+    data.push_back(a_vehicle);
+}
+
+void Menu::add_vehicle(){
+    int retry;
+    int option;
+        std::cout<<"\033[2J\033[1;1H";
+        std::cout<<"Select the Vehicle type:\n";
+        std::cout<<"0 - Fossil Fuel\n";
+        std::cout<<"1 - Electric\n";
+        std::cout<<"2 - Hybrid\n";
+    do {
+    retry=0;
+    try {
+        std::cin>>option;
+        switch (option) {
+        case 0: add_fossil() ;break;
+        case 1: add_electric() ;break;
+        case 2: add_hybrid() ;break;
+        default: throw InvalidInput("Invalid option! Valid options: [0-2] Got: " + std::to_string(option)) ; break;
+        }
+    } catch (InvalidInput& e)  {
+        std::cout<<e.what()<<std::endl;
+        retry=1;
+        std::cin.get();
+    }
+
+    }while (retry);
 }
