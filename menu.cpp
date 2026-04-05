@@ -31,7 +31,7 @@ void Menu::remove_vehicle(){
     std::cout<<"Remove vehicle with id: ";
     int target, poz= -1;
     std::cin>> target;
-    for(int i=0; i<data.size();i++){
+    for(unsigned int i= 0;i< data.size(); i++){
         if(data[i]->get_id()== target){
          poz= i;
          break;
@@ -39,7 +39,7 @@ void Menu::remove_vehicle(){
     }
     if (poz >=0){
         //don't need the returned iterator, but it's a nodiscard function.
-        std::ignore =std::remove(data.begin(),data.end(),poz);
+        auto ignore =std::remove(data.begin(),data.end(),poz);
         data.pop_back();
     }
 }
