@@ -49,10 +49,10 @@ void Menu::add_vehicle(){
     retry=0;
     try {
         std::cout<<"\033[2J\033[1;1H";
-        std::cout<<"Select the Vehicle type:/n";
-        std::cout<<"0 - Fossil Fuel/n";
-        std::cout<<"1 - Electric/n";
-        std::cout<<"2 - Hybrid/n";
+        std::cout<<"Select the Vehicle type:\n";
+        std::cout<<"0 - Fossil Fuel\n";
+        std::cout<<"1 - Electric\n";
+        std::cout<<"2 - Hybrid\n";
         std::cin>>option;
     } catch (InvalidInput& e)  {
         std::cout<<e.what()<<std::endl;
@@ -67,11 +67,11 @@ void Menu::options(){
     //clear screen via ANSI escape codes
     //*should* work across OSes
     std::cout<<"\033[2J\033[1;1H";
-    std::cout<<"Choose an option:/n";
-    std::cout<<"0 - Quit/n";
-    std::cout<<"1 - Add a vehicle/n";
-    std::cout<<"2 - List current vehicles/n";
-    std::cout<<"3 - Remove a vehicle/n";
+    std::cout<<"Choose an option:\n";
+    std::cout<<"0 - Quit\n";
+    std::cout<<"1 - Add a vehicle\n";
+    std::cout<<"2 - List current vehicles\n";
+    std::cout<<"3 - Remove a vehicle\n";
 
     
     try{
