@@ -9,6 +9,3 @@ double Reciprocating::displacement() const{
 double Rotary::displacement() const{
     return chamber_count*chamber_volume*rotor_count;
 }
-
-int Reciprocating::get_stokes()const{return strokes;}
-int Reciprocating::get_config()const{return config;}
