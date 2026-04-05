@@ -21,7 +21,7 @@ void Menu::quit(){
 }
 
 void Menu::list_vehicles() const{
-    for (const auto& i : data) {
+    for (auto& i : data) {
     i->print();
     }
 }
