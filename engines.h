@@ -30,6 +30,8 @@ class Reciprocating: public Engine{
     double bore;
     double stroke_length;
     public:
+    int get_stokes() const;
+    int get_config() const;
     double displacement() const override;
     Reciprocating(std::string _lubricant, enum ignition _ignition, enum strokes _strokes, enum config _config, unsigned int _cylinder_count, double _bore, double _stroke_length):Engine(_lubricant, _ignition),strokes(_strokes),config(_config),cylinder_count(_cylinder_count),bore(_bore),stroke_length(_stroke_length){}
 };
