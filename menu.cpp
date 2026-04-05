@@ -21,7 +21,7 @@ void Menu::quit(){
 }
 
 void Menu::list_vehicles() const{
-    for (auto& i : data) {
+    for (const auto& i : data) {
     i->print();
     }
 }
@@ -29,12 +29,18 @@ void Menu::list_vehicles() const{
 void Menu::remove_vehicle(){
     list_vehicles();
     std::cout<<"Remove vehicle with id: ";
-    int target;
+    int target, poz= -1;
     std::cin>> target;
-    for(auto& i: data){
-        if(i->get_id()== target){
-            data.erase(std::find(data.begin(), data.end(), i));
+    for(int i=0; i<data.size();i++){
+        if(data[i]->get_id()== target){
+         poz= i;
+         break;
         }
+    }
+    if (poz >=0){
+        //don't need the returned iterator, but it's a nodiscard function.
+        std::ignore =std::remove(data.begin(),data.end(),poz);
+        data.pop_back();
     }
 }
 
@@ -69,8 +75,9 @@ void Menu::options(){
     std::cout<<"2 - List current vehicles/n";
     std::cout<<"3 - Remove a vehicle/n";
 
-    int option;
+    
     try{
+    int option;
     std::cin>>option;
     switch (option){
     case 0:
