@@ -9,7 +9,7 @@ class Engine{
         COMPRESSION
     }ignition;
     public:
-    virtual ~Engine();
+    virtual ~Engine(){}
     virtual double displacement() const=0;
 };
 
