@@ -14,7 +14,7 @@ Engines─┬─Reciprocating
 
 Vehicles─┬─Electric┬─Hybrid
          └─Fossil──┘
-           └Egnine*
+           └Egnines*
 
 std::exception─┬─IvalidInput
                └─MathError
