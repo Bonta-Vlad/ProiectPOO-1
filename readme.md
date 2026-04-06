@@ -16,8 +16,9 @@ Vehicles─┬─Electric┬─Hybrid
          └─Fossil──┘
            └Egnine*
 
-<exception>──IvalidInput
+std::exception──IvalidInput
 
 Menu(Singleton)
 └Vector<Vehicles*>
 ```
+Engines și Vehicles sunt clase abstracte
