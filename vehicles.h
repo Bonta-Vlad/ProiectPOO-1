@@ -10,7 +10,7 @@ double lenght;
 int seats;
 int id;
 int wheel_count;
-Vehicles(double _weight, double _lenght, int _seats, int _wheel_count):weight(_weight),lenght(_lenght),seats(_seats),wheel_count(_wheel_count){}
+Vehicles(double _weight, double _lenght, int _seats, int _wheel_count):weight(_weight),lenght(_lenght),seats(_seats),wheel_count(_wheel_count),id(gid++){}
 public:
 virtual ~Vehicles(){}
 int get_id() const;
