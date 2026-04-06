@@ -8,5 +8,6 @@ int main(){
         menu->options();
     }
 
+    delete menu;
     return 0;
 }
