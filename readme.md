@@ -16,8 +16,8 @@ Vehicles─┬─Electric┬─Hybrid
          └─Fossil──┘
            └Egnine*
 
-std::exception──IvalidInput
-
+std::exception─┬─IvalidInput
+               └─MathError
 Menu(Singleton)
 └Vector<Vehicles*>
 ```
